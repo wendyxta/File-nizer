@@ -1,15 +1,14 @@
 downloads_path: "/Users/wendy2.0/Downloads"
 
 extensions: #extract from file type
-  pdf: "Documents"
-  docx: "Documents"
-  pptx: "Documents"
+  docx: "Downloads/Spring_26"
+  pptx: "Downloads/Spring_26"
+  py: "Downloads/CS122"
+  java: "Downloads/CS175"
   jpg: "Images"
   png: "Images"
   mp3: "Videos"
   mp4: "Videos"
-  py: "Downloads/CS122"
-  java: "Downloads/CS175"
 
 keywords: #extract from filename
   Resume: "Documents/Career"
@@ -18,6 +17,5 @@ keywords: #extract from filename
   Guide: "Downloads/CS175"
   Lab: "Downloads/Spring_26"
   Assignment: "Downloads/Spring_26"
-  Exam: "Downloads/Spring_26"
 
 # websites: #TODO

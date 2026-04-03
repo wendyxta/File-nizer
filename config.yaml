@@ -1,8 +1,8 @@
 system_path: "/Users/wendy2.0/"
 
 extensions: #extract from file type
-  docx: "Downloads/Spring_26"
-  pptx: "Downloads/Spring_26"
+  docx: "Downloads/Spring 26"
+  pptx: "Downloads/Spring 26"
   exe: "Downloads/Installers"
   py: "Downloads/CS122"
   jpg: "Images"
@@ -15,7 +15,7 @@ keywords: #extract from filename
   statement: "Documents/Finances"
   setup: "Downloads/Installers"
   cs122: "Downloads/CS122"
-  exam: "Downloads/Spring_26"
-  worksheet: "Downloads/Spring_26"
+  exam: "Downloads/Spring 26"
+  worksheet: "Downloads/Spring 26"
 
 # websites: #TODO

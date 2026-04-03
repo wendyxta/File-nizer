@@ -13,12 +13,12 @@ class OrganizerBot:
         self.bot_classifier = Classifier(self.rules)
 
     def organize_downloads(self):
-        for item in os.listdir(self.downloads_path):
-            item_path = os.path.join(self.downloads_path, item)
+        for file_name in os.listdir(self.downloads_path):
+            file_path = os.path.join(self.downloads_path, file_name)
 
-            if not os.path.isdir(item_path):
-                destination_path = self.bot_classifier.identify_destination(item_path)
-                print(item + " --> " + destination_path)
-                mover.move_file(self.downloads_path, destination_path)
+            if not os.path.isdir(file_path):
+                destination_path = self.bot_classifier.identify_destination(file_name)
+                print(file_name + " --> " + destination_path)
+                mover.move_file(self.downloads_path, destination_path, file_name)
                 logger.log_action(self.downloads_path, destination_path)
     

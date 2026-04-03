@@ -11,9 +11,9 @@ class Classifier:
             return self.system_path + self.default_path
         
         name_and_ext = file_name.rsplit(".", 1) #handle file names with mulitple dots: split from right to left, only 1x
-        name = name_and_ext[1]
-        ext = name_and_ext[0]
-
+        name = name_and_ext[0]
+        ext = name_and_ext[1]
+        print(name, ext)
         new_path = self.check_extensions(ext)
         if new_path == None:
             new_path = self.check_keywords(name)
@@ -29,7 +29,6 @@ class Classifier:
             return False
         if file_name.startswith(".") or file_name == " ": 
             return False
-        
         return True
 
     # check if file extention is listed in config file

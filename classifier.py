@@ -13,7 +13,7 @@ class Classifier:
         name_and_ext = file_name.rsplit(".", 1) #handle file names with mulitple dots: split from right to left, only 1x
         name = name_and_ext[0]
         ext = name_and_ext[1]
-        print(name, ext)
+
         new_path = self.check_extensions(ext)
         if new_path == None:
             new_path = self.check_keywords(name)

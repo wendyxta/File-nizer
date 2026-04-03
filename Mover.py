@@ -13,4 +13,3 @@ def move_file(downloads_dir, destination_dir, file_name):
         pass 
 
     os.rename(source_path, destination_path)
-

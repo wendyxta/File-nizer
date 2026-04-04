@@ -1,0 +1,3 @@
+2026-04-03 18:14:07.729971,Lab 6_Bioinformatics Worksheet.docx,moved,success,/Users/wendy2.0/Downloads\Lab 6_Bioinformatics Worksheet.docx,/Users/wendy2.0/Downloads/Spring 26\Lab 6_Bioinformatics Worksheet.docx,
+2026-04-03 18:14:07.731433,Lab 6_Bioinformatics Worksheet.pdf,moved,success,/Users/wendy2.0/Downloads\Lab 6_Bioinformatics Worksheet.pdf,/Users/wendy2.0/Downloads/Spring 26\Lab 6_Bioinformatics Worksheet.pdf,
+time filename action result reason srcpath destpath

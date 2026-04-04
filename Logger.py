@@ -9,7 +9,7 @@ class Logger:
 
     def get_time(self):
         cur_datetime = datetime.today()
-        return cur_datetime
+        return str(cur_datetime)
 
     def log_move(self, name, src, dest, reason="", action="moved", result="success"):
         time = self.get_time()

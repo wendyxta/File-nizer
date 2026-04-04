@@ -1,10 +1,11 @@
-from datetime import datetime
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+import util
 
 class Logger:
     def __init__(self):
         self.log = []
+        self.source_path = "/Downloads"
         self.account_path = "service_account.json"
         self.service = self.authenticate()
 
@@ -19,7 +20,7 @@ class Logger:
         cell_range = "Sheet1!A2"
 
         rows = []
-        header = ["Time", "File Name", "Action", "Result", "Reason", "Source Path", "Destination Path"]
+        header = ["Time", "File Name", "Action", "Result", "Source Path", "Destination Path", "Reason"]
         rows.append(header)
 
         for entry in self.log:
@@ -31,21 +32,18 @@ class Logger:
                               valueInputOption="RAW", 
                               body={"values": rows}).execute()
 
-    def get_time(self):
-        cur_datetime = datetime.today()
-        return str(cur_datetime)
+    def log_move(self, name, dest, reason="-", action="moved", result="success"):
+        time = util.get_time()
+        reformatted_src = util.format_src(self.source_path, name)
+        reformatted_dest = util.format_dest(dest)
 
-    def log_move(self, name, src, dest, reason="", action="moved", result="success"):
-        time = self.get_time()
-        entry = [time, name, action, result, src, dest, reason]
+        entry = [time, name, action, result, reformatted_src, reformatted_dest, reason]
         self.log.append(entry)
 
-    def log_skip(self, name, src, reason, dest="", action="skipped", result="fail"):
-        time = self.get_time()
-        entry = [time, name, action, result, src, dest, reason]
-        self.log.append(entry)
+    def log_skip(self, name, reason, dest="-", action="skipped", result="fail"):
+        time = util.get_time()
+        reformatted_src = util.format_src(self.source_path, name)
+        reformatted_dest = util.format_dest(dest)
 
-    def log_misc(self, name, src, reason, dest, action="moved to misc", result="success"):
-        time = self.get_time()
-        entry = [time, name, action, result, src, dest, reason]
+        entry = [time, name, action, result, reformatted_src, reformatted_dest, reason]
         self.log.append(entry)

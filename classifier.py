@@ -9,7 +9,7 @@ class Classifier:
 
     def identify_destination(self, file_name): 
         if not self.valid_file_name(file_name):
-            return self.system_path + self.default_path
+            return None
         
         name_and_ext = file_name.rsplit(".", 1) #handle file names with mulitple dots: split from right to left, only 1x
         name = name_and_ext[0]
@@ -20,7 +20,6 @@ class Classifier:
             new_path = self.check_keywords(name)
             if new_path == None:
                 new_path = self.default_path #default path if no rules match
-                self.logger.log_misc(file_name, self.config["system_path"]+"/"+file_name, "file name does not follow a configuration", self.default_path)
 
         destination_path = self.system_path + new_path
         return destination_path
@@ -28,10 +27,10 @@ class Classifier:
     # handle file names missing name, missing extension --> use default path
     def valid_file_name(self, file_name):
         if not "." in file_name or file_name.endswith("."):
-            self.logger.log_misc(file_name, self.config["system_path"]+"/"+file_name, "file is missing an extension", self.default_path)
+            self.logger.log_skip(file_name, "file is missing an extension")
             return False
         if file_name.startswith(".") or file_name == " ": 
-            self.logger.log_misc(file_name, self.config["system_path"]+"/"+file_name, "file is missing a name", self.default_path)
+            self.logger.log_skip(file_name, "file is missing a name")
             return False
         return True
 

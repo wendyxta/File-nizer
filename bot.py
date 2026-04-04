@@ -5,7 +5,7 @@ from logger import Logger
 
 class OrganizerBot:
     def __init__(self):
-        print("Hi, I'm OrganizerBot!")
+        print("OrganizerBot is organizing your downloads folder...")
 
         try:
             with open("config.yaml", mode="r") as f:
@@ -17,7 +17,7 @@ class OrganizerBot:
             self.mover = Mover(self.logger)
             
         except FileNotFoundError:
-            print("'config.yaml' file does not exist in project directory. Please create configurations.")
+            print("'config.yaml' file does not exist in project directory. Please create yaml configuration file.")
 
     def organize_downloads(self):
         for file_name in os.listdir(self.downloads_path):
@@ -25,6 +25,9 @@ class OrganizerBot:
 
             if not os.path.isdir(file_path):
                 destination_path = self.bot_classifier.identify_destination(file_name)
+                if destination_path == None:
+                    continue
                 self.mover.move_file(self.downloads_path, destination_path, file_name)
 
         self.logger.log_actions_into_sheets()
+        print("Your downloads folder has been organized!")

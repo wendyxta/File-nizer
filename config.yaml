@@ -5,8 +5,8 @@ extensions: #extract from file type
   pptx: "Downloads/Spring 26"
   exe: "Downloads/Installers"
   py: "Downloads/CS122"
-  jpg: "Images"
-  png: "Images"
+  jpg: "Pictures"
+  png: "Pictures"
   mp4: "Videos"
 
 keywords: #extract from filename
@@ -17,5 +17,3 @@ keywords: #extract from filename
   cs122: "Downloads/CS122"
   exam: "Downloads/Spring 26"
   worksheet: "Downloads/Spring 26"
-
-# websites: #TODO

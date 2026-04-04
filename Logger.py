@@ -1,17 +1,27 @@
+from datetime import datetime
+
 class Logger:
     def __init__(self):
         self.log = []
 
-    def log_time(self):
-        pass
+    def get_log(self):
+        return self.log
 
-    def log_move(self, name, src, dest, action="move", result="success", reason=""):
-        pass
+    def get_time(self):
+        cur_datetime = datetime.today()
+        return cur_datetime
 
-    def log_skip(self, name, src, reason, dest="", action="skip", result="fail"):
-        pass
+    def log_move(self, name, src, dest, reason="", action="moved", result="success"):
+        time = self.get_time()
+        entry = [time, name, action, result, src, dest, reason]
+        self.log.append(entry)
 
-    def log_error(self, name, src, reason, dest="", action="error", result="fail"):
-        pass
+    def log_skip(self, name, src, reason, dest="", action="skipped", result="fail"):
+        time = self.get_time()
+        entry = [time, name, action, result, src, dest, reason]
+        self.log.append(entry)
 
-    #logging format: time filename action success/fail srcpath destpath reason(skip/error)
+    def log_misc(self, name, src, reason, dest, action="moved to misc", result="success"):
+        time = self.get_time()
+        entry = [time, name, action, result, src, dest, reason]
+        self.log.append(entry)

@@ -27,18 +27,4 @@ class OrganizerBot:
                 destination_path = self.bot_classifier.identify_destination(file_name)
                 self.mover.move_file(self.downloads_path, destination_path, file_name)
 
-    def log_actions(self):
-        log = self.logger.get_log()
-        lines = []
-
-        header = "time filename action result reason sourcepath destinationpath"
-        lines.append(header)
-
-        for entry in log:
-            line = ",".join(entry)
-            lines.append(line)
-        
-        formatted_log = "\n".join(lines)
-        with open("log.txt", mode="w") as f:
-            f.write(formatted_log)
-    
+        self.logger.log_actions_into_sheets()

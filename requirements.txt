@@ -1,5 +1,7 @@
-pyyaml
+#install the following using: pip install -r requriements.txt
 
+flask
+pyyaml
 google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2

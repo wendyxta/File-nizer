@@ -4,10 +4,15 @@ from bot import OrganizerBot
 app = Flask(__name__)
 my_bot = OrganizerBot()
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def organize():
-    my_bot.organize_downloads()
-    return render_template("dashboard.html")
+    message=""
+
+    if request.method == "POST":
+        my_bot.organize_downloads()
+        message = "Your files have been organized!"
+
+    return render_template("dashboard.html", message=message)
 
 if __name__ == "__main__":
     app.run(debug=True)

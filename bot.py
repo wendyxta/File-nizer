@@ -30,4 +30,3 @@ class OrganizerBot:
                 self.mover.move_file(self.downloads_path, destination_path, file_name)
 
         self.logger.log_actions_into_sheets()
-        print("Your downloads folder has been organized!")

@@ -7,7 +7,12 @@ class Logger:
         self.log = []
         self.source_path = "/Downloads"
         self.account_path = "service_account.json"
+        self.spreadsheet_id = "1OjYhAYmgKgGBwV1IwA4TP_XTJXII6IAtQWt6kyPXNMw" 
+        self.cell_range = "'Current Log'!A2"
         self.service = self.authenticate()
+
+    def get_log(self):
+        return self.log
 
     def authenticate(self):
         scopes = ["https://www.googleapis.com/auth/spreadsheets"] #allow read and write access
@@ -16,9 +21,6 @@ class Logger:
         return service
     
     def log_actions_into_sheets(self):
-        spreadsheet_id = "1OjYhAYmgKgGBwV1IwA4TP_XTJXII6IAtQWt6kyPXNMw" 
-        cell_range = "Sheet1!A2"
-
         rows = []
         header = ["Time", "File Name", "Action", "Result", "Source Path", "Destination Path", "Reason"]
         rows.append(header)
@@ -27,8 +29,8 @@ class Logger:
             rows.append(entry)
 
         sheet = self.service.spreadsheets()
-        sheet.values().append(spreadsheetId=spreadsheet_id, 
-                              range=cell_range, 
+        sheet.values().append(spreadsheetId=self.spreadsheet_id, 
+                              range=self.cell_range, 
                               valueInputOption="RAW", 
                               body={"values": rows}).execute()
 

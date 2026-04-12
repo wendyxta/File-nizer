@@ -9,16 +9,16 @@ class Logger:
         self.source_path = "/Downloads"
         self.account_path = "service_account.json"
         self.spreadsheet_id = "1OjYhAYmgKgGBwV1IwA4TP_XTJXII6IAtQWt6kyPXNMw" 
-        self.cell_range = "'Current Log'!A2"
+        self.cell_range = "'Current Log'!A1"
         self.service = self.authenticate()
                          
     def get_summary(self):
         full_log = self.read_entries_from_sheets()
         total_files = len(full_log)
-
         today_files = 0
+        
         today = str(datetime.now().strftime("%Y-%m-%d"))
-        for entry in full_log:
+        for entry in full_log[2:]:
             if entry[0].startswith(today):
                 today_files+=1
 
@@ -39,7 +39,7 @@ class Logger:
     
     def log_actions_into_sheets(self):
         rows = []
-        header = ["Time", "File Name", "Action", "Result", "Source Path", "Destination Path", "Reason"]
+        header = ["Time", "File Name", "Action", "Reason", "Source Path", "Destination Path"]
         rows.append(header)
         for entry in self.log:
             rows.append(entry)
@@ -50,18 +50,18 @@ class Logger:
                               valueInputOption="RAW", 
                               body={"values": rows}).execute()
 
-    def log_move(self, name, dest, reason="-", action="moved", result="success"):
+    def log_move(self, name, dest, reason="-", action="moved"):
         time = util.get_time()
         reformatted_src = util.format_src(self.source_path, name)
         reformatted_dest = util.format_dest(dest)
 
-        entry = [time, name, action, result, reformatted_src, reformatted_dest, reason]
+        entry = [time, name, action, reason, reformatted_src, reformatted_dest]
         self.log.append(entry)
 
-    def log_skip(self, name, reason, dest="-", action="skipped", result="fail"):
+    def log_skip(self, name, reason, dest="-", action="skipped"):
         time = util.get_time()
         reformatted_src = util.format_src(self.source_path, name)
         reformatted_dest = util.format_dest(dest)
 
-        entry = [time, name, action, result, reformatted_src, reformatted_dest, reason]
+        entry = [time, name, action, reason, reformatted_src, reformatted_dest]
         self.log.append(entry)

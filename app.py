@@ -13,11 +13,14 @@ def organize():
         my_bot = OrganizerBot()
 
         summary = my_bot.organize_downloads()
-        total_files = summary[0]
-        today_files = summary[1]
-        time_saved = str("{:.2f}".format(summary[2])) + " minutes"
-        message = "Your files have been organized!"
+        print(summary)
+        message = summary[0]
+        stats = summary[1]
 
+        total_files = stats[0]
+        today_files = stats[1]
+        time_saved = str("{:.2f}".format(stats[2])) + " minutes"
+        
     return render_template("dashboard.html", message=message, total_files=total_files, today_files=today_files, time_saved=time_saved)
 
 if __name__ == "__main__":

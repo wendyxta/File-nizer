@@ -1,9 +1,24 @@
 from flask import Flask, render_template, request
 from bot import OrganizerBot
+
+"""
+This app handles the Flask web interface route for the main dashboard page.
+"""
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def organize():
+    """
+    GET:
+        Renders the main dashboard page with default vlaues.
+
+    POST:
+        Creates an OrganizerBot instance to trigger file organization. 
+        Retrieves summary statistics and renders the dashboard with updated values.
+
+    @return: a rendered HTML template with an organization status message, the total number of files organizes, 
+    the number of files organzed today, and the amount of time saved.
+    """
     message=""
     total_files = "-"
     today_files = "-"
@@ -13,7 +28,6 @@ def organize():
         my_bot = OrganizerBot()
 
         summary = my_bot.organize_downloads()
-        print(summary)
         message = summary[0]
         stats = summary[1]
 

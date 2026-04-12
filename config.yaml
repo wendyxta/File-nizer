@@ -1,4 +1,5 @@
 system_path: "/Users/wendy2.0/"
+default_path: "Downloads/Misc"
 
 extensions: #extract from file type
   docx: "Downloads/Spring 26"

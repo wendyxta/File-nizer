@@ -1,3 +1,4 @@
+from datetime import datetime
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 import util
@@ -10,9 +11,25 @@ class Logger:
         self.spreadsheet_id = "1OjYhAYmgKgGBwV1IwA4TP_XTJXII6IAtQWt6kyPXNMw" 
         self.cell_range = "'Current Log'!A2"
         self.service = self.authenticate()
+                         
+    def get_summary(self):
+        full_log = self.read_entries_from_sheets()
+        total_files = len(full_log)
 
-    def get_log(self):
-        return self.log
+        today_files = 0
+        today = str(datetime.now().strftime("%Y-%m-%d"))
+        for entry in full_log:
+            if entry[0].startswith(today):
+                today_files+=1
+
+        time_saved = total_files * 5 / 60 #assuming ~5 sec per file transfer
+        return total_files, today_files, time_saved
+    
+    def read_entries_from_sheets(self):
+        sheet = self.service.spreadsheets()
+        entries = sheet.values().get(spreadsheetId=self.spreadsheet_id, range="'Current Log'!A2:G").execute()
+        full_log = entries.get("values", [])
+        return full_log
 
     def authenticate(self):
         scopes = ["https://www.googleapis.com/auth/spreadsheets"] #allow read and write access
@@ -24,7 +41,6 @@ class Logger:
         rows = []
         header = ["Time", "File Name", "Action", "Result", "Source Path", "Destination Path", "Reason"]
         rows.append(header)
-
         for entry in self.log:
             rows.append(entry)
 

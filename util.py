@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 
 def get_time():
-    cur_datetime = datetime.today()
+    cur_datetime = datetime.today().strftime("%Y-%m-%d %H:%M %p")
     return str(cur_datetime)
 
 def format_src(source_path, name):

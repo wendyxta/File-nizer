@@ -1,5 +1,8 @@
-#install the following using: pip install -r requriements.txt
+#create a google sheets API service account and add the service_account.json file to project directory
+#create a config.yaml file with custom keywords and extension rules for file classificaiton
+#create virtual environment: "python -m venv .venv" and activate using: ".venv\Scripts\activate"
 
+#install the following using: "pip install -r requriements.txt"
 flask
 pyyaml
 google-api-python-client

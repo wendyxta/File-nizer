@@ -2,13 +2,13 @@ from flask import Flask, render_template, request
 from bot import OrganizerBot
 
 app = Flask(__name__)
-my_bot = OrganizerBot()
 
 @app.route("/", methods=["GET", "POST"])
 def organize():
     message=""
 
     if request.method == "POST":
+        my_bot = OrganizerBot()
         my_bot.organize_downloads()
         message = "Your files have been organized!"
 

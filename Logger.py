@@ -1,7 +1,7 @@
 from datetime import datetime
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-import util
+import util, json, os
 
 class Logger:
     """
@@ -54,11 +54,25 @@ class Logger:
 
     def authenticate(self):
         """
-        Authenticates with Google Sheets using service account credentials
+        Authenticates with Google Sheets using service account credentials.
+
+        Checks for Vercel's GOOGLE_CREDENTIALS_JSON environment variable first,
+        falling back to local service_account.json if unavailable.
         @return: the location of the googleapiclient.discovery.Resource object
         """
         scopes = ["https://www.googleapis.com/auth/spreadsheets"] #allow read and write access
-        credentials = Credentials.from_service_account_file(self.account_path, scopes=scopes) 
+        creds_json_str = os.environ.get("GOOGLE_CREDENTIALS_JSON") 
+        
+        if creds_json_str:
+            #production: parse JSON string directly from Vercel environment variable
+            creds_info = json.loads(creds_json_str)
+            credentials = Credentials.from_service_account_info(creds_info, scopes=scopes)
+        elif os.path.exists(self.account_path):
+            #local development: load from local service_account.json file
+            credentials = Credentials.from_service_account_file(self.account_path, scopes=scopes)
+        else:
+            raise FileNotFoundError("Google credentials not found in environment variable or local file.")
+        
         service = build("sheets", "v4", credentials=credentials) 
         return service
     

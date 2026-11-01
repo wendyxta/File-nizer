@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from bot import OrganizerBot
+from datetime import datetime
 
 """
 This app handles the Flask web interface route for the main dashboard page.
@@ -26,8 +27,10 @@ def organize():
 
     if request.method == "POST":
         my_bot = OrganizerBot()
-
+        start = datetime.now()
         summary = my_bot.organize_downloads()
+        end = datetime.now()
+        print("Organized files in " + str(end-start) + "ms.")
         message = summary[0]
         stats = summary[1]
 

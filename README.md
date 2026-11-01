@@ -14,9 +14,11 @@ We often downloads lots of random things on our computer on a daily basis. Most 
 - Python
 - Flask, HTML
 - Google Sheets API
+- Vercel Cloud Deployment
 
 # Instructions
 - Create a Google Sheets API service account and add the service_account.json file to project directory
 - Create a config.yaml file with desired keywords and extension rules for customized file classificaiton
 - Create virtual environment `python -m venv .venv` and activate using `.venv\Scripts\activate`
 - Install the requried modules listed in requriements.txt with `pip install -r requriements.txt`
+- Run File-nizer! `python app.py`
